@@ -1,0 +1,19 @@
+pip install SpeechRecognition pyaudio
+import speech_recognition as sr
+
+# Khởi tạo bộ nhận diện giọng nói
+recognizer = sr.Recognizer()
+
+# Sử dụng microphone
+with sr.Microphone() as source:
+    print("Bạn hãy nói gì đó...")
+    audio = recognizer.listen(source)
+
+    try:
+        # Chuyển đổi âm thanh thành văn bản
+        text = recognizer.recognize_google(audio, language='vi-VN')
+        print("Bạn đã nói: " + text)
+    except sr.UnknownValueError:
+        print("Không thể nhận diện được giọng nói.")
+    except sr.RequestError:
+        print("Không thể kết nối đến dịch vụ nhận diện giọng nói.")
